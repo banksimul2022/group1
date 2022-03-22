@@ -1,1 +1,2 @@
-# group1
+# Ryhmä 1
+Sovelluskehitysprojekti
