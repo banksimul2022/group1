@@ -1,6 +1,7 @@
 const db = require('../database');
 
 const asiakas = {
+    
     get: function (callback) {
         return db.query('select * from Asiakas', callback);
     },
