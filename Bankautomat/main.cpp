@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "enterpin.h"
+#include <QDebug>
 
 #include <QApplication>
 
