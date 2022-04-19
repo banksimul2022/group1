@@ -1,8 +1,9 @@
 #include "mainwindow.h"
-#include "enterpin.h"
 #include <QDebug>
 
 #include <QApplication>
+#include <QLibrary>
+QLibrary lib("DLLPinCode.dll");
 
 #ifndef RFID_LIB_H
    #define KorttiEiLukijassa() false
@@ -12,8 +13,9 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
     MainWindow w;
-    EnterPin UI_pin;
     w.show();
+
+
 
 
     while(KorttiEiLukijassa()){
