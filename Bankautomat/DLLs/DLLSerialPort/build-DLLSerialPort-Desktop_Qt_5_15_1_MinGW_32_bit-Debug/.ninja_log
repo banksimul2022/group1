@@ -1,0 +1,9 @@
+# ninja log v5
+2	271	6720770564415268	DLLSerialPort_autogen/timestamp	f676ecbf0c7192f3
+2	271	6720770564415268	DLLSerialPort_autogen/mocs_compilation.cpp	f676ecbf0c7192f3
+2	271	6720770564415268	C:/Users/PK/Documents/GitHub/group1/Bankautomat/DLLs/DLLSerialPort/build-DLLSerialPort-Desktop_Qt_5_15_1_MinGW_32_bit-Debug/DLLSerialPort_autogen/timestamp	f676ecbf0c7192f3
+2	271	6720770564415268	C:/Users/PK/Documents/GitHub/group1/Bankautomat/DLLs/DLLSerialPort/build-DLLSerialPort-Desktop_Qt_5_15_1_MinGW_32_bit-Debug/DLLSerialPort_autogen/mocs_compilation.cpp	f676ecbf0c7192f3
+272	369	6720770565969446	CMakeFiles/DLLSerialPort.dir/DLLSerialPort_autogen/mocs_compilation.cpp.obj	18fbbf126ff92b58
+275	573	6720770568007483	CMakeFiles/DLLSerialPort.dir/dllserialport.cpp.obj	651381614e7d8947
+574	743	6720770569650250	libDLLSerialPort.dll	ddf5dbba621dd87b
+574	743	6720770569650250	libDLLSerialPort.dll.a	ddf5dbba621dd87b
