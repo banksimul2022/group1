@@ -5,7 +5,13 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const helmet = require('helmet');
 const cors = require('cors');
+
 const userRouter = require('./routes/user');
+const korttiRouter = require('./routes/kortti');
+const asiakasRouter = require('./routes/asiakas');
+const tiliRouter = require('./routes/tili');
+const yhteytyminenRouter = require('./routes/yhteytyminen');
+const toiminnotRouter = require('./routes/toiminnot');
 //const basicAuth = require('express-basic-auth');
 
 
@@ -22,6 +28,12 @@ app.use(helmet());
 app.use(cors());
 
 app.use('/user', userRouter);
+app.use('/kortti', korttiRouter);
+
+app.use('/asiakas', asiakasRouter);
+app.use('/tili', tiliRouter);
+app.use('/yhteytyminen', yhteytyminenRouter);
+app.use('/toiminnot', toiminnotRouter);
 
 app.get('/', function(req, res) { //render homepage
   res.render('home');
