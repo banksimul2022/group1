@@ -15,7 +15,9 @@ SOURCES += \
     mainwindow.cpp
 
 HEADERS += \
-    mainwindow.h
+    enterpin.h \
+    mainwindow.h /
+    DLLs/DLLSerialPort/DLLSerialPort/dllserialport.h
 
 FORMS += \
     mainwindow.ui
