@@ -3,7 +3,6 @@
 
 #include <QApplication>
 #include <QLibrary>
-QLibrary lib("DLLPinCode.dll");
 
 #ifndef RFID_LIB_H
    #define KorttiEiLukijassa() false

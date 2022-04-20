@@ -15,6 +15,7 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow()
 {
     delete ui;
+    delete dllSerialPort;
 }
 
 void MainWindow::on_RFID_INPUT_OK() {

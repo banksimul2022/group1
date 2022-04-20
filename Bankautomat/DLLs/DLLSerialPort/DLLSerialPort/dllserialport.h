@@ -3,6 +3,7 @@
 
 #include "DLLSerialPort_global.h"
 #include <QtSerialPort/QSerialPort>
+#include <QtSerialPort/QSerialPortInfo>
 
 class DLLSERIALPORT_EXPORT DLLSerialPort
 {
@@ -10,7 +11,7 @@ public:
     DLLSerialPort();
 
 private:
-    QSerialPort *serial;
+    QSerialPort *serial = nullptr;
 };
 
 #endif // DLLSERIALPORT_H
