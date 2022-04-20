@@ -1,5 +1,4 @@
-QT       += core gui
-QT       += serialport
+QT += core gui widgets serialport
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -13,13 +12,14 @@ CONFIG += c++11
 SOURCES += \
     DLLs/DLLSerialPort/DLLSerialPort/dllserialport.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    DLLs\DLLSerialPort\DLLSerialPort\dllserialport.cpp
 
 HEADERS += \
     DLLs/DLLSerialPort/DLLSerialPort/DLLSerialPort_global.h \
     DLLs/DLLSerialPort/DLLSerialPort/dllserialport.h \
-    mainwindow.h /
-    DLLs/DLLSerialPort/DLLSerialPort/dllserialport.h
+    mainwindow.h \
+    DLLs\DLLSerialPort\DLLSerialPort\dllserialport.h
     DLLs/DLLPinCode/DLLPinCode/kirjautuminen.h
 
 FORMS += \
@@ -29,13 +29,6 @@ FORMS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
-
-win32:CONFIG(release, debug|release): LIBS += -L$$PWD/DLLs/DLLSerialPort/build-DLLSerialPort-Desktop_Qt_5_15_1_MinGW_32_bit-Debug/ -llibDLLSerialPort.dll
-else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/DLLs/DLLSerialPort/build-DLLSerialPort-Desktop_Qt_5_15_1_MinGW_32_bit-Debug/ -llibDLLSerialPort.dlld
-else:unix: LIBS += -L$$PWD/DLLs/DLLSerialPort/build-DLLSerialPort-Desktop_Qt_5_15_1_MinGW_32_bit-Debug/ -llibDLLSerialPort.dll
-win32:CONFIG(release, debug|release): LIBS += -L$$PWD/DLLs/DLLPinCode/build-DLLPinCode-Desktop_Qt_5_15_2_MinGW_32_bit-Debug/release/ -lDLLPinCode
-else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/DLLs/DLLPinCode/build-DLLPinCode-Desktop_Qt_5_15_2_MinGW_32_bit-Debug/debug/ -lDLLPinCode
-else:unix: LIBS += -L$$PWD/DLLs/DLLPinCode/build-DLLPinCode-Desktop_Qt_5_15_2_MinGW_32_bit-Debug/ -lDLLPinCode
 
 INCLUDEPATH += $$PWD/DLLs/DLLPinCode/build-DLLPinCode-Desktop_Qt_5_15_2_MinGW_32_bit-Debug/debug
 INCLUDEPATH += $$PWD/DLLs/DLLSerialPort/build-DLLSerialPort-Desktop_Qt_5_15_1_MinGW_32_bit-Debug
