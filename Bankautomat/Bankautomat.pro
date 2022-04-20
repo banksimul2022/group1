@@ -16,7 +16,8 @@ SOURCES += \
 
 HEADERS += \
     enterpin.h \
-    mainwindow.h
+    mainwindow.h /
+    DLLs/DLLSerialPort/DLLSerialPort/dllserialport.h
 
 FORMS += \
     enterpin.ui \

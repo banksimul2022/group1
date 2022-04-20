@@ -2,7 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-
+#include "DLLs/DLLSerialPort/DLLSerialPort/dllserialport.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -24,5 +24,6 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
+    DLLSerialPort* dllSerialPort;
 };
 #endif // MAINWINDOW_H

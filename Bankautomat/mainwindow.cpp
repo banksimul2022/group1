@@ -5,6 +5,7 @@
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
+    , dllSerialPort(new DLLSerialPort)
 {
     ui->setupUi(this);
     ui->pushButton->setVisible(false);
