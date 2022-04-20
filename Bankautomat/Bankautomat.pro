@@ -10,13 +10,17 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    DLLs/DLLSerialPort/DLLSerialPort/dllserialport.cpp \
     main.cpp \
     mainwindow.cpp \
     DLLs\DLLSerialPort\DLLSerialPort\dllserialport.cpp
 
 HEADERS += \
+    DLLs/DLLSerialPort/DLLSerialPort/DLLSerialPort_global.h \
+    DLLs/DLLSerialPort/DLLSerialPort/dllserialport.h \
     mainwindow.h \
     DLLs\DLLSerialPort\DLLSerialPort\dllserialport.h
+    DLLs/DLLPinCode/DLLPinCode/kirjautuminen.h
 
 FORMS += \
     mainwindow.ui
@@ -30,3 +34,6 @@ INCLUDEPATH += $$PWD/DLLs/DLLPinCode/build-DLLPinCode-Desktop_Qt_5_15_2_MinGW_32
 INCLUDEPATH += $$PWD/DLLs/DLLSerialPort/build-DLLSerialPort-Desktop_Qt_5_15_1_MinGW_32_bit-Debug
 DEPENDPATH += $$PWD/DLLs/DLLPinCode/build-DLLPinCode-Desktop_Qt_5_15_2_MinGW_32_bit-Debug/debug
 DEPENDPATH += $$PWD/DLLs/DLLSerialPort/build-DLLSerialPort-Desktop_Qt_5_15_1_MinGW_32_bit-Debug
+
+DISTFILES += \
+    DLLs/DLLSerialPort/DLLSerialPort/CMakeLists.txt

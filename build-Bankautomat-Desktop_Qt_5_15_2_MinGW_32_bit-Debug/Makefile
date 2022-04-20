@@ -249,6 +249,7 @@ Makefile: ../Bankautomat/Bankautomat.pro D:/QT/5.15.2/mingw81_32/mkspecs/win32-g
 		../Bankautomat/Bankautomat.pro \
 		D:/QT/5.15.2/mingw81_32/lib/Qt5Widgets.prl \
 		D:/QT/5.15.2/mingw81_32/lib/Qt5Gui.prl \
+		D:/QT/5.15.2/mingw81_32/lib/Qt5SerialPort.prl \
 		D:/QT/5.15.2/mingw81_32/lib/Qt5Core.prl \
 		D:/QT/5.15.2/mingw81_32/lib/qtmain.prl \
 		D:/QT/5.15.2/mingw81_32/mkspecs/features/build_pass.prf
@@ -432,6 +433,7 @@ D:/QT/5.15.2/mingw81_32/mkspecs/features/lex.prf:
 ../Bankautomat/Bankautomat.pro:
 D:/QT/5.15.2/mingw81_32/lib/Qt5Widgets.prl:
 D:/QT/5.15.2/mingw81_32/lib/Qt5Gui.prl:
+D:/QT/5.15.2/mingw81_32/lib/Qt5SerialPort.prl:
 D:/QT/5.15.2/mingw81_32/lib/Qt5Core.prl:
 D:/QT/5.15.2/mingw81_32/lib/qtmain.prl:
 D:/QT/5.15.2/mingw81_32/mkspecs/features/build_pass.prf:

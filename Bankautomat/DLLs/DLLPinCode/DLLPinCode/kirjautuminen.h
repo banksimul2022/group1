@@ -1,6 +1,5 @@
 #ifndef KIRJAUTUMINEN_H
 #define KIRJAUTUMINEN_H
-
 #include <QDialog>
 
 namespace Ui {
