@@ -222,6 +222,7 @@ Makefile: ../Bankautomat/Bankautomat.pro B:/QT/5.15.1/mingw81_32/mkspecs/win32-g
 		B:/QT/5.15.1/mingw81_32/mkspecs/features/qt_config.prf \
 		B:/QT/5.15.1/mingw81_32/mkspecs/win32-g++/qmake.conf \
 		B:/QT/5.15.1/mingw81_32/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		B:/QT/5.15.1/mingw81_32/mkspecs/features/exclusive_builds.prf \
 		B:/QT/5.15.1/mingw81_32/mkspecs/features/toolchain.prf \
 		B:/QT/5.15.1/mingw81_32/mkspecs/features/default_pre.prf \
@@ -251,7 +252,6 @@ Makefile: ../Bankautomat/Bankautomat.pro B:/QT/5.15.1/mingw81_32/mkspecs/win32-g
 		B:/QT/5.15.1/mingw81_32/lib/Qt5SerialPort.prl \
 		B:/QT/5.15.1/mingw81_32/lib/Qt5Core.prl \
 		B:/QT/5.15.1/mingw81_32/lib/qtmain.prl \
-		.qmake.stash \
 		B:/QT/5.15.1/mingw81_32/mkspecs/features/build_pass.prf
 	$(QMAKE) -o Makefile ..\Bankautomat\Bankautomat.pro -spec win32-g++ "CONFIG+=qtquickcompiler"
 B:/QT/5.15.1/mingw81_32/mkspecs/features/spec_pre.prf:
@@ -406,6 +406,7 @@ B:/QT/5.15.1/mingw81_32/mkspecs/features/qt_functions.prf:
 B:/QT/5.15.1/mingw81_32/mkspecs/features/qt_config.prf:
 B:/QT/5.15.1/mingw81_32/mkspecs/win32-g++/qmake.conf:
 B:/QT/5.15.1/mingw81_32/mkspecs/features/spec_post.prf:
+.qmake.stash:
 B:/QT/5.15.1/mingw81_32/mkspecs/features/exclusive_builds.prf:
 B:/QT/5.15.1/mingw81_32/mkspecs/features/toolchain.prf:
 B:/QT/5.15.1/mingw81_32/mkspecs/features/default_pre.prf:
@@ -435,7 +436,6 @@ B:/QT/5.15.1/mingw81_32/lib/Qt5Gui.prl:
 B:/QT/5.15.1/mingw81_32/lib/Qt5SerialPort.prl:
 B:/QT/5.15.1/mingw81_32/lib/Qt5Core.prl:
 B:/QT/5.15.1/mingw81_32/lib/qtmain.prl:
-.qmake.stash:
 B:/QT/5.15.1/mingw81_32/mkspecs/features/build_pass.prf:
 qmake: FORCE
 	@$(QMAKE) -o Makefile ..\Bankautomat\Bankautomat.pro -spec win32-g++ "CONFIG+=qtquickcompiler"
