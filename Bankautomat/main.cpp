@@ -1,12 +1,11 @@
 #include "mainwindow.h"
 #include <QDebug>
-
 #include <QApplication>
 #include <QLibrary>
-QLibrary lib("DLLPinCode.dll");
+#include "DLLs/DLLPinCode/DLLPinCode/kirjautuminen.h"
 
 #ifndef RFID_LIB_H
-   #define KorttiEiLukijassa() false
+   #define kirjautuminenValmis() false
 #endif
 
 int main(int argc, char *argv[])
@@ -14,11 +13,11 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
     MainWindow w;
     w.show();
+    kirjautuminen login;
 
 
 
-
-    while(KorttiEiLukijassa()){
+    while(kirjautuminenValmis()){
         a.processEvents();
 
 
