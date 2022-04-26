@@ -1,26 +1,19 @@
-QT += core gui widgets serialport
+QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-CONFIG += c++11
-
+CONFIG += c++17
 
 # You can make your code fail to compile if it uses deprecated APIs.
 # In order to do so, uncomment the following line.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    DLLs/DLLSerialPort/DLLSerialPort/dllserialport.cpp \
     main.cpp \
-    mainwindow.cpp \
-    DLLs\DLLSerialPort\DLLSerialPort\dllserialport.cpp
+    mainwindow.cpp
 
 HEADERS += \
-    DLLs/DLLSerialPort/DLLSerialPort/DLLSerialPort_global.h \
-    DLLs/DLLSerialPort/DLLSerialPort/dllserialport.h \
-    mainwindow.h \
-    DLLs\DLLSerialPort\DLLSerialPort\dllserialport.h
-    DLLs/DLLPinCode/DLLPinCode/kirjautuminen.h
+    mainwindow.h
 
 FORMS += \
     mainwindow.ui
@@ -30,10 +23,8 @@ qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
-INCLUDEPATH += $$PWD/DLLs/DLLPinCode/build-DLLPinCode-Desktop_Qt_5_15_2_MinGW_32_bit-Debug/debug
-INCLUDEPATH += $$PWD/DLLs/DLLSerialPort/build-DLLSerialPort-Desktop_Qt_5_15_1_MinGW_32_bit-Debug
-DEPENDPATH += $$PWD/DLLs/DLLPinCode/build-DLLPinCode-Desktop_Qt_5_15_2_MinGW_32_bit-Debug/debug
-DEPENDPATH += $$PWD/DLLs/DLLSerialPort/build-DLLSerialPort-Desktop_Qt_5_15_1_MinGW_32_bit-Debug
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../DLLs/build-DLLSerialPort-Desktop_Qt_5_15_1_MinGW_32_bit-Debug/release/ -lDLLSerialPort
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../DLLs/build-DLLSerialPort-Desktop_Qt_5_15_1_MinGW_32_bit-Debug/debug/ -lDLLSerialPort
 
-DISTFILES += \
-    DLLs/DLLSerialPort/DLLSerialPort/CMakeLists.txt
+INCLUDEPATH += $$PWD/../DLLs/DLLSerialPort
+DEPENDPATH += $$PWD/../DLLs/DLLSerialPort
