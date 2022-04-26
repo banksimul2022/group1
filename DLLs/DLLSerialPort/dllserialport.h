@@ -17,6 +17,18 @@ public:
 
 private:
     QSerialPort *serial = nullptr;
+    QSerialPortInfo *serialInfo = nullptr;
+    void sendCommand(QString input);
+    QString readBuffer();
+    void flushBuffer();
+    bool testForModule();
+
+public slots:
+    void readCard();
+
+signals:
+    void cardRead(qint64);
+
 };
 
 #endif // DLLSERIALPORT_H
