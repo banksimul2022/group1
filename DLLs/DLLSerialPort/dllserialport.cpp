@@ -1,5 +1,9 @@
 #include "dllserialport.h"
 
+/**
+ * @brief DLLSerialPort::DLLSerialPort Konstruktori
+ * @param parent
+ */
 DLLSerialPort::DLLSerialPort(QObject* parent) : QObject(parent)
 {
     qDebug() << "Serial DLL Initializer called";
@@ -35,6 +39,10 @@ DLLSerialPort::DLLSerialPort(QObject* parent) : QObject(parent)
     QObject::connect(serial, &QSerialPort::readyRead, this, &DLLSerialPort::readCard);
 }
 
+/**
+ * @brief DLLSerialPort::sendCommand Lähettää tekstin sarjaporttiin
+ * @param input: Moduulille lähetettävä komento ilman loppumerkkiä
+ */
 void DLLSerialPort::sendCommand(QString input){
     qDebug() << "SERIAL: TX called with " << input;
     if(errorState){
@@ -49,6 +57,10 @@ void DLLSerialPort::sendCommand(QString input){
         qDebug() << "SERIAL: TX timeout";
 }
 
+/**
+ * @brief DLLSerialPort::readBuffer Lukee sarjaporttiin saapuneen tiedon
+ * @return QString-muuttuja, jossa on portista luettu tieto
+ */
 QString DLLSerialPort::readBuffer(){
     qDebug() << "SERIAL: RX called";
     if(errorState){
@@ -71,6 +83,9 @@ QString DLLSerialPort::readBuffer(){
     return QString::fromUtf8(responseData);
 }
 
+/**
+ * @brief DLLSerialPort::flushBuffer Tyhjentää sarjaportiin saapuneet tavut
+ */
 void DLLSerialPort::flushBuffer(){
     qDebug() << "SERIAL: Buffer flush called";
     if(errorState){
@@ -82,6 +97,10 @@ void DLLSerialPort::flushBuffer(){
     serial->skip(serial->bytesAvailable());
 }
 
+/**
+ * @brief DLLSerialPort::testForModule Tarkistaa onko nykyisessä sarjaportissa RFID-moduulia
+ * @return Löytyikö moduulia vai ei
+ */
 bool DLLSerialPort::testForModule(){
     qDebug() << "SERIAL: Module test called";
 
@@ -101,6 +120,9 @@ bool DLLSerialPort::testForModule(){
     }
 }
 
+/**
+ * @brief DLLSerialPort::readCard Lukee moduulin lähettämän tunnisteen arvon
+ */
 void DLLSerialPort::readCard(){
     qDebug() << "SERIAL: Executing card read";
     if(errorState){
@@ -114,6 +136,9 @@ void DLLSerialPort::readCard(){
     emit cardRead(value);
 }
 
+/**
+ * @brief DLLSerialPort::~DLLSerialPort Dekonstruktori
+ */
 DLLSerialPort::~DLLSerialPort(){
     qDebug() << "SERIAL: Destructor called";
     QObject::disconnect(serial, &QSerialPort::readyRead, this, &DLLSerialPort::readCard);
