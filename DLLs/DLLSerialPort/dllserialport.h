@@ -18,6 +18,8 @@ public:
 private:
     QSerialPort *serial = nullptr;
     QSerialPortInfo *serialInfo = nullptr;
+    bool readerFound = false;
+    bool errorState = false;
     void sendCommand(QString input);
     QString readBuffer();
     void flushBuffer();

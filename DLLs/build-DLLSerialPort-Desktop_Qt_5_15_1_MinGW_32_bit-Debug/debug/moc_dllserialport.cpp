@@ -62,7 +62,7 @@ static const uint qt_meta_data_DLLSerialPort[] = {
        3,    0,   27,    2, 0x0a /* Public */,
 
  // signals: parameters
-    QMetaType::Void, QMetaType::Long,    2,
+    QMetaType::Void, QMetaType::LongLong,    2,
 
  // slots: parameters
     QMetaType::Void,
@@ -76,14 +76,14 @@ void DLLSerialPort::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _i
         auto *_t = static_cast<DLLSerialPort *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
-        case 0: _t->cardRead((*reinterpret_cast< long(*)>(_a[1]))); break;
+        case 0: _t->cardRead((*reinterpret_cast< qint64(*)>(_a[1]))); break;
         case 1: _t->readCard(); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
         int *result = reinterpret_cast<int *>(_a[0]);
         {
-            using _t = void (DLLSerialPort::*)(long );
+            using _t = void (DLLSerialPort::*)(qint64 );
             if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&DLLSerialPort::cardRead)) {
                 *result = 0;
                 return;
@@ -133,7 +133,7 @@ int DLLSerialPort::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 }
 
 // SIGNAL 0
-void DLLSerialPort::cardRead(long _t1)
+void DLLSerialPort::cardRead(qint64 _t1)
 {
     void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t1))) };
     QMetaObject::activate(this, &staticMetaObject, 0, _a);
