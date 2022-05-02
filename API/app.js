@@ -1,3 +1,9 @@
+/*
+   Eemil Kauniskangas
+   Code use prohibited
+   No license provided
+*/
+
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
