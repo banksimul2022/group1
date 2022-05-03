@@ -17,7 +17,9 @@ public:
     RestApiDLL();
     int GetServerSatus();
     bool VerifyPIN(int Cardnumber, int PIN);
-    int Withdraw(int sum, int CardNumber);
+    bool CardHolderData(int Cardnumber, QJsonDocument *data);
+    bool checkBalance(int CardNumber, double *balance);
+    bool Withdraw(int sum, int CardNumber);
     ~RestApiDLL();
 private:
     QNetworkAccessManager * getManager;

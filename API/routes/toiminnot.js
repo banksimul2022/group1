@@ -2,6 +2,47 @@ const express = require('express');
 const router = express.Router();
 const toiminnot = require('../models/toiminnot_model');
 
+//function for checking balance
+router.post('/balance', function (request, response) {
+
+    if (request.body.Korttinumero) {
+        
+        toiminnot.checkBalance(request.body.Korttinumero, function (err, dbResult) {
+            if (err) {
+                return response.json({ success: false});
+            } else {
+                console.log(dbResult);
+                return response.json({ success: true, balance: dbResult[0].Saldo });
+            }
+        });
+    }
+
+    else {
+        return response.json("error")
+    }
+
+});
+
+//function for checking card holder data
+router.post('/card_data', function (request, response) {
+
+    if (request.body.Korttinumero) {
+        
+        toiminnot.getInfo(request.body.Korttinumero, function (err, dbResult) {
+            if (err) {
+                return response.json({ success: false});
+            } else {
+                console.log(dbResult);
+                return response.json({ success: true, dbResult});
+            }
+        });
+    }
+
+    else {
+        return response.json("error")
+    }
+
+});
 
 router.post('/money', function (request, response) {
 
@@ -39,46 +80,7 @@ router.post('/money', function (request, response) {
 
 });
 
-//function for checking balance
-router.post('/balance', function (request, response) {
 
-    if (request.body.Korttinumero) {
-        
-        toiminnot.checkBalance(request.body.Korttinumero, function (err, dbResult) {
-            if (err) {
-                return response.json({ success: false});
-            } else {
-                console.log(dbResult);
-                return response.json({ success: true, balance: dbResult[0].Saldo });
-            }
-        });
-    }
-
-    else {
-        return response.json("error")
-    }
-
-});
-
-router.post('/card_data', function (request, response) {
-
-    if (request.body.Korttinumero) {
-        
-        toiminnot.getInfo(request.body.Korttinumero, function (err, dbResult) {
-            if (err) {
-                return response.json({ success: false});
-            } else {
-                console.log(dbResult);
-                return response.json({ success: true, dbResult});
-            }
-        });
-    }
-
-    else {
-        return response.json("error")
-    }
-
-});
 
 router.get('nosto/:Korttinumero?/:rahasumma?', function (request, response) {
 
