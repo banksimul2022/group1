@@ -57,15 +57,18 @@ bool RestApiDLL::VerifyPIN(int Cardnumber, int PIN)
     {
 
         response_data=reply->readAll();
+
+
+        //qDebug()<<"DATA : "+response_data;
+        QJsonDocument json_Doc = QJsonDocument::fromJson(response_data);
+        bool pincorrect =  json_Doc.object().value("success").toBool();
+
         reply->deleteLater();
         postManager->deleteLater();
 
-        qDebug()<<"DATA : "+response_data;
-        QJsonDocument json_Doc = QJsonDocument::fromJson(response_data);
-        bool pincorrect =  json_Doc.object().value("pin").toBool();
-
         if ( pincorrect == true)
         {
+
             qDebug() << "success, pin and card are valid";
             return true;
         }
@@ -83,7 +86,113 @@ bool RestApiDLL::VerifyPIN(int Cardnumber, int PIN)
     }
 }
 
-int RestApiDLL::Withdraw(int sum, int CardNumber)
+bool RestApiDLL::CardHolderData(int Cardnumber, QJsonDocument *data)
+{
+    QEventLoop loop;
+    QString Cardstring = QVariant(Cardnumber).toString();
+
+    QUrl URL("http://localhost:3000/toiminnot/card_data");
+    QNetworkRequest request(URL);
+
+    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
+
+    QUrlQuery urlQuery;
+    urlQuery.addQueryItem ("Korttinumero", Cardstring);
+
+    reply = postManager->post(request, urlQuery.toString(QUrl::FullyEncoded).toUtf8());
+    connect(reply, &QNetworkReply::finished, &loop, &QEventLoop::quit); //wait for finished reply
+    loop.exec();
+
+    if (reply->error() == QNetworkReply::NoError)
+    {
+
+        response_data=reply->readAll();
+
+
+        //qDebug()<<"DATA : "+response_data;
+        QJsonDocument json_Doc = QJsonDocument::fromJson(response_data);
+        bool query_ok =  json_Doc.object().value("success").toBool();
+
+        reply->deleteLater();
+        postManager->deleteLater();
+
+        if ( query_ok == true)
+        {
+
+            qDebug() << "success";
+            *data = json_Doc;
+            return true;
+        }
+        else
+        {
+            qDebug() << "pin and card are invalid";
+            return false;
+        }
+
+    }
+
+    else
+    {
+        return false; //return error
+    }
+}
+
+bool RestApiDLL::checkBalance(int Cardnumber, double *balance)
+{
+
+    QEventLoop loop;
+    QString Cardstring = QVariant(Cardnumber).toString();
+
+
+    QUrl URL("http://localhost:3000/toiminnot/balance");
+    QNetworkRequest request(URL);
+
+    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
+
+    QUrlQuery urlQuery;
+    urlQuery.addQueryItem ("Korttinumero", Cardstring);
+
+
+    reply = postManager->post(request, urlQuery.toString(QUrl::FullyEncoded).toUtf8());
+    connect(reply, &QNetworkReply::finished, &loop, &QEventLoop::quit); //wait for finished reply
+    loop.exec();
+
+    if (reply->error() == QNetworkReply::NoError)
+    {
+
+        response_data=reply->readAll();
+
+
+        //qDebug()<<"DATA : "+response_data;
+        QJsonDocument json_Doc = QJsonDocument::fromJson(response_data);
+        bool success =  json_Doc.object().value("success").toBool();
+        *balance =  json_Doc.object().value("balance").toDouble();
+
+        reply->deleteLater();
+        postManager->deleteLater();
+
+        if ( success == true)
+        {
+
+            return true;
+        }
+        else
+        {
+
+            qDebug() << "invalid card";
+            return false;
+        }
+
+    }
+
+    else
+    {
+        return false; //return error
+    }
+}
+
+
+bool RestApiDLL::Withdraw(int sum, int CardNumber)
 {
     QEventLoop loop;
     QString Cardstring = QVariant(CardNumber).toString();
@@ -110,13 +219,10 @@ int RestApiDLL::Withdraw(int sum, int CardNumber)
 
     else
     {
-        return 1;
+        return false;
     }
 
-
-
-
-    return 1;
+    return false;
 }
 
 

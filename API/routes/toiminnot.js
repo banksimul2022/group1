@@ -2,22 +2,65 @@ const express = require('express');
 const router = express.Router();
 const toiminnot = require('../models/toiminnot_model');
 
-router.get('/:Korttinumero?/:rahasumma?', function (request, response) {
+//function for checking balance
+router.post('/balance', function (request, response) {
 
-    if (request.params.Korttinumero) {
-        if (request.params.rahasumma == undefined) { return response.json({ success: false, message: "no summa provided" }) };
+    if (request.body.Korttinumero) {
+        
+        toiminnot.checkBalance(request.body.Korttinumero, function (err, dbResult) {
+            if (err) {
+                return response.json({ success: false});
+            } else {
+                console.log(dbResult);
+                return response.json({ success: true, balance: dbResult[0].Saldo });
+            }
+        });
+    }
 
-        toiminnot.checkBalance(request.params.Korttinumero, function (err, dbResult) {
+    else {
+        return response.json("error")
+    }
+
+});
+
+//function for checking card holder data
+router.post('/card_data', function (request, response) {
+
+    if (request.body.Korttinumero) {
+        
+        toiminnot.getInfo(request.body.Korttinumero, function (err, dbResult) {
+            if (err) {
+                return response.json({ success: false});
+            } else {
+                console.log(dbResult);
+                return response.json({ success: true, dbResult});
+            }
+        });
+    }
+
+    else {
+        return response.json("error")
+    }
+
+});
+
+router.post('/money', function (request, response) {
+
+    if (request.body.Korttinumero) {
+        if (request.body.rahasumma == undefined) { return response.json({ success: false, message: "no summa provided" }) };
+        //check if card exists
+
+        toiminnot.checkBalance(request.body.Korttinumero, function (err, dbResult) {
             if (err) {
                 response.json(err);
             } else {
                 console.log(dbResult);
-                if (dbResult[0].Saldo >= request.params.rahasumma) {
+                if (dbResult[0].Saldo >= request.body.rahasumma) {
 
-                    toiminnot.getInfo(request.params.Korttinumero, function (err, data) {
+                    toiminnot.getInfo(request.body.Korttinumero, function (err, data) {
                         console.log(data);
                         console.log(dbResult[0].Saldo);
-                        return response.json("rahat riittää");
+                        return response.json({ success: true, message: "rahat riittää" });
                     });
 
                 }
@@ -36,6 +79,8 @@ router.get('/:Korttinumero?/:rahasumma?', function (request, response) {
     }
 
 });
+
+
 
 router.get('nosto/:Korttinumero?/:rahasumma?', function (request, response) {
 
