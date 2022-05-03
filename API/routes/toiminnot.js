@@ -44,7 +44,7 @@ router.post('/card_data', function (request, response) {
 
 });
 
-//simple withdrawal function w/out tilitapahtumat
+//withdrawal function
 router.post('/nosto/simple', function (request, response) {
 
     if (request.body.Korttinumero) {
@@ -65,16 +65,28 @@ router.post('/nosto/simple', function (request, response) {
                         else {
                             console.log("tultiin ulos getTiliID funktiosta TiliID on: ");
                             TiliID = dbResult[0].Tili_idTili;
+                            KorttiID = dbResult[0].idKortti;
                             console.log(TiliID);
+                            console.log(KorttiID);
 
-                            toiminnot.SimpleWithdrawal(request.body.rahasumma, TiliID, function (err, dbResult) {
+                            toiminnot.Withdrawal(request.body.rahasumma, TiliID, function (err, dbResult) {
                                 if (err) {
                                     console.log("db error");
                                     return response.json({ success: false, message: "withdrawal error" })
                                 }
                                 else {
-                                    console.log("withdrawal success");
-                                    return response.json({ success: true, message: dbResult })
+                                    return response.json({ success: true, message: "withdrawal success" })
+                                    /*
+                                    toiminnot.AddTransaction(request.body.rahasumma, TiliID, KorttiID, function (err, result) {
+                                        if (err) {
+                                            return response.json({ success: false, message: "withdrawal error" })
+                                        }
+                                        else {
+                                            return response.json({ success: true, message: result })
+                                        }
+                
+                                    });
+                                    */
                                 }
                             });
                         }
@@ -114,6 +126,15 @@ router.post('/nosto', function (request, response) {
                         }
                         else {
                             return response.json({ success: true, message: result })
+                            toiminnot.Withdrawal(request.body.Korttinumero, request.body.rahasumma, function (err, result) {
+                                if (err) {
+                                    return response.json({ success: false, message: "withdrawal error" })
+                                }
+                                else {
+                                    return response.json({ success: true, message: result })
+                                }
+        
+                            });
                         }
 
                     });

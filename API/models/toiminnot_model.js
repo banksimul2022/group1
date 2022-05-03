@@ -13,7 +13,7 @@ const toiminnot = {
     },
 
 
-    SimpleWithdrawal: function (rahasumma, TiliID, callback) {
+    Withdrawal: function (rahasumma, TiliID, callback) {
         return db.query('update Tili set Saldo = Saldo - ? where idTili = ?', [rahasumma, TiliID], callback);
     },
 
@@ -21,14 +21,13 @@ const toiminnot = {
         return db.query('select idKortti, Tili_idTili from Kortti where Korttinumero = ?', [Kortinnumero], callback);
     },
 
-    //ei käytössä (kesken) ->
-    Withdrawal: function (Kortinnumero, rahasumma, callback) {
+    //kesken ->
+    AddTransaction: function (rahasumma, TiliID, KorttiID, callback) {
         
         return db.query('Insert into tilitapahtumat (Ajankohta, Tapahtuma, Summa, idTili, idKortti) values (now(), \'Nosto\', ?, ?, ? ) ',
-            [rahasumma], [identifiers[0].Tili_idTili], [identifiers[0].idKortti]);
-        //return db.query('update Tili set Saldo = Saldo - ? where idTili = ?', [rahasumma, TiliID]);
-
+            [rahasumma, TiliID, KorttiID]);
     },
+    //kesken ->
     getTransactions: function (Kortinnumero) {
 
     }
