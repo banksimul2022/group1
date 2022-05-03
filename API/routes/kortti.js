@@ -36,11 +36,11 @@ router.post('/kortteja', function (request, response) {
                                 return response.json({ success: false, message: 'error while comparing values' });
                             }
                             if (res) {
-                                return response.json({ pin: true });
+                                return response.json({ success: true });
                             }
 
                             else {
-                                return response.json({ pin: false });
+                                return response.json({ success: false });
                             }
                         });
                     }
