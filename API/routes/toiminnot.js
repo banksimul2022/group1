@@ -6,10 +6,10 @@ const toiminnot = require('../models/toiminnot_model');
 router.post('/balance', function (request, response) {
 
     if (request.body.Korttinumero) {
-        
+
         toiminnot.checkBalance(request.body.Korttinumero, function (err, dbResult) {
             if (err) {
-                return response.json({ success: false});
+                return response.json({ success: false });
             } else {
                 console.log(dbResult);
                 return response.json({ success: true, balance: dbResult[0].Saldo });
@@ -27,13 +27,13 @@ router.post('/balance', function (request, response) {
 router.post('/card_data', function (request, response) {
 
     if (request.body.Korttinumero) {
-        
+
         toiminnot.getInfo(request.body.Korttinumero, function (err, dbResult) {
             if (err) {
-                return response.json({ success: false});
+                return response.json({ success: false });
             } else {
                 console.log(dbResult);
-                return response.json({ success: true, dbResult});
+                return response.json({ success: true, dbResult });
             }
         });
     }
@@ -44,77 +44,92 @@ router.post('/card_data', function (request, response) {
 
 });
 
-router.post('/money', function (request, response) {
+//simple withdrawal function w/out tilitapahtumat
+router.post('/nosto/simple', function (request, response) {
 
     if (request.body.Korttinumero) {
-        if (request.body.rahasumma == undefined) { return response.json({ success: false, message: "no summa provided" }) };
-        //check if card exists
-
+        if (request.body.rahasumma == undefined) { return response.json({ success: false, message: "no withdrawal amount given" }) };
+        console.log("nosto/simple body: ");
+        console.log(request.body);
         toiminnot.checkBalance(request.body.Korttinumero, function (err, dbResult) {
             if (err) {
-                response.json(err);
+                return response.json({ success: false, message: "db error" })
             } else {
-                console.log(dbResult);
+                console.log(dbResult[0].Saldo);
                 if (dbResult[0].Saldo >= request.body.rahasumma) {
 
-                    toiminnot.getInfo(request.body.Korttinumero, function (err, data) {
-                        console.log(data);
-                        console.log(dbResult[0].Saldo);
-                        return response.json({ success: true, message: "rahat riittää" });
-                    });
+                    toiminnot.getTiliID(request.body.Korttinumero, function (err, dbResult) {
+                        if (err) {
+                            return response.json({ success: false, message: "db error" })
+                        }
+                        else {
+                            console.log("tultiin ulos getTiliID funktiosta TiliID on: ");
+                            TiliID = dbResult[0].Tili_idTili;
+                            console.log(TiliID);
 
+                            toiminnot.SimpleWithdrawal(request.body.rahasumma, TiliID, function (err, dbResult) {
+                                if (err) {
+                                    console.log("db error");
+                                    return response.json({ success: false, message: "withdrawal error" })
+                                }
+                                else {
+                                    console.log("withdrawal success");
+                                    return response.json({ success: true, message: dbResult })
+                                }
+                            });
+                        }
+                    });
                 }
                 else {
-                    return response.json({success: false, message: "Insufficient funds"});
+                    console.log("rahat ei riittäny");
+                    return response.json({ success: false, message: "Insufficient funds" });
                 }
-                //response.json(dbResult);
-
-                //if (rahasumma)
             }
         });
     }
 
     else {
-        return response.json("yritäkkö rikkoo mun serveriä tyhjillä requesteillä hä?????")
+        return response.json({ success: false, message: "undefined" })
     }
 
 });
 
+//ei käytössä (kesken) ->
+router.post('/nosto', function (request, response) {
 
+    if (request.body.Korttinumero) {
+        if (request.body.rahasumma == undefined) { return response.json({ success: false, message: "no withdrawal amount given" }) };
 
-router.get('nosto/:Korttinumero?/:rahasumma?', function (request, response) {
-
-    if (request.params.Korttinumero) {
-        if (request.params.rahasumma == undefined) { return response.json({ success: false, message: "no summa provided" }) };
-
-        toiminnot.checkBalance(request.params.Korttinumero, function (err, dbResult) {
+        toiminnot.checkBalance(request.body.Korttinumero, function (err, dbResult) {
             if (err) {
-                response.json(err);
+                return response.json({ success: false, message: "db error" })
             } else {
                 console.log(dbResult);
-                if (dbResult[0].Saldo >= request.params.rahasumma) {
+                if (dbResult[0].Saldo >= request.body.rahasumma) {
                     console.log(dbResult[0].Saldo);
 
-                    toiminnot.Withdrawal(request.params.Korttinumero, request.params.rahasumma, function (err, result) {
+                    toiminnot.Withdrawal(request.body.Korttinumero, request.body.rahasumma, function (err, result) {
+                        if (err) {
+                            return response.json({ success: false, message: "withdrawal error" })
+                        }
+                        else {
+                            return response.json({ success: true, message: result })
+                        }
 
-                    })
+                    });
 
                 }
                 else {
-                    return response.json({success: false, message: "Insufficient funds"});
+                    return response.json({ success: false, message: "Insufficient funds" });
                 }
 
 
-
-                //response.json(dbResult);
-
-                //if (rahasumma)
             }
         });
     }
 
     else {
-        return response.json("yritäkkö rikkoo mun serveriä tyhjillä requesteillä hä?????")
+        return response.json({ success: false, message: "error" })
     }
 
 });
