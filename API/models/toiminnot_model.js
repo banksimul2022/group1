@@ -9,23 +9,29 @@ const toiminnot = {
 
     getInfo: function (Korttinumero, callback) {
         return db.query('select Nimi, Osoite, Puhelinnumero from Asiakas join Kortti on Asiakas.idAsiakas = Kortti.Asiakas_idAsiakas where Korttinumero = ?',
-         [Korttinumero], callback);
+            [Korttinumero], callback);
     },
-    Withdrawal: function (Kortinnumero, rahasumma) { //ei testattu
-        identifiers = db.query('select idKortti, Tili_idTili from Kortti where Korttinumero = ?', [Kortinnumero], callback);
-        retval = db.query('Insert into tilitapahtumat (Ajankohta, Tapahtuma, Summa, idTili, idKortti) values (now(), \'Nosto\', ?, ?, ? ) ', 
-        [rahasumma], [identifiers[0].Tili_idTili], [identifiers[0].idKortti]);
 
-        if (x) { //jos query ok
-            return db.query('update Tili set Saldo = Saldo - ? where idTili = ?', [rahasumma], [identifiers[0].Tili_idTili]);
-        }
-        
+
+    Withdrawal: function (rahasumma, TiliID, callback) {
+        return db.query('update Tili set Saldo = Saldo - ? where idTili = ?', [rahasumma, TiliID], callback);
     },
+
+    getTiliID: function (Kortinnumero, callback) {
+        return db.query('select idKortti, Tili_idTili from Kortti where Korttinumero = ?', [Kortinnumero], callback);
+    },
+
+    //kesken ->
+    AddTransaction: function (rahasumma, TiliID, KorttiID, callback) {
+        
+        return db.query('Insert into tilitapahtumat (Ajankohta, Tapahtuma, Summa, idTili, idKortti) values (now(), \'Nosto\', ?, ?, ? ) ',
+            [rahasumma, TiliID, KorttiID]);
+    },
+    //kesken ->
     getTransactions: function (Kortinnumero) {
 
     }
 
 }
-
 
 module.exports = toiminnot;

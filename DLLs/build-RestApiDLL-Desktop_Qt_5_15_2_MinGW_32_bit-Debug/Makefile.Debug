@@ -659,7 +659,11 @@ debug/restapidll.o: ../RestApiDLL/restapidll.cpp ../RestApiDLL/restapidll.h \
 		C:/Qt/5.15.2/mingw81_32/include/QtNetwork/qtnetworkversion.h \
 		C:/Qt/5.15.2/mingw81_32/include/QtCore/QJsonDocument \
 		C:/Qt/5.15.2/mingw81_32/include/QtCore/QDebug \
-		C:/Qt/5.15.2/mingw81_32/include/QtCore/QUrlQuery
+		C:/Qt/5.15.2/mingw81_32/include/QtCore/QUrlQuery \
+		C:/Qt/5.15.2/mingw81_32/include/QtCore/QJsonValue \
+		C:/Qt/5.15.2/mingw81_32/include/QtCore/QJsonObject \
+		C:/Qt/5.15.2/mingw81_32/include/QtCore/QVariantMap \
+		C:/Qt/5.15.2/mingw81_32/include/QtCore/QJsonArray
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\restapidll.o ..\RestApiDLL\restapidll.cpp
 
 debug/moc_restapidll.o: debug/moc_restapidll.cpp 

@@ -33,4 +33,15 @@ function(request, response) {
   });
 });
 
+router.put('/', 
+function(request, response) {
+  asiakas.add(request.body, function(err, count) {
+    if (err) {
+      response.json(err);
+    } else {
+      response.json(request.body); 
+    }
+  });
+});
+
 module.exports = router;

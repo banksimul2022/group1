@@ -23,10 +23,13 @@ public:
     ~RestApiDLL();
 private:
     QNetworkAccessManager * getManager;
-    QNetworkAccessManager * postManager;
+    QNetworkAccessManager * withdrawManager;
+    QNetworkAccessManager * PINManager;
+    QNetworkAccessManager * balanceManager;
+    QNetworkAccessManager * CardDataManager;
     QNetworkReply *reply;
+    QNetworkReply *withdrawreply;
     QByteArray  response_data;
-
 };
 
 #endif // RESTAPIDLL_H
