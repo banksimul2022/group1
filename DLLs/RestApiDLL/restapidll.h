@@ -15,11 +15,10 @@ class RESTAPIDLL_EXPORT RestApiDLL : public QObject
 
 public:
     RestApiDLL();
-    int GetServerSatus();
-    bool VerifyPIN(int Cardnumber, int PIN);
-    bool CardHolderData(int Cardnumber, QJsonDocument *data);
-    bool checkBalance(int CardNumber, double *balance);
-    bool Withdraw(int sum, int CardNumber);
+    bool VerifyPIN(QString Cardnumber, QString PIN);
+    bool CardHolderData(QString Cardnumber, QJsonDocument *data);
+    bool checkBalance(QString CardNumber, double *balance);
+    bool Withdraw(QString sum, QString CardNumber);
     ~RestApiDLL();
 private:
     QNetworkAccessManager * getManager;

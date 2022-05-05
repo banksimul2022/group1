@@ -9,7 +9,6 @@
 #include <QJsonArray>
 
 
-
 RestApiDLL::RestApiDLL()
 {
 
@@ -17,12 +16,14 @@ RestApiDLL::RestApiDLL()
     qDebug() << "RestApi started" << Qt::endl;
 }
 
-bool RestApiDLL::VerifyPIN(int Cardnumber, int PIN)
+bool RestApiDLL::VerifyPIN(QString Cardstring, QString PINstring)
 {
     PINManager = new QNetworkAccessManager(this);
     QEventLoop loop;
-    QString Cardstring = QVariant(Cardnumber).toString();
-    QString PINstring = QVariant(PIN).toString();
+
+    //ei tarvita koska mainwindow antaa jo string muotoisena
+    //QString Cardstring = QVariant(Cardnumber).toString();
+    //QString PINstring = QVariant(PIN).toString();
 
     QUrl URL("http://localhost:3000/kortti/kortteja");
     QNetworkRequest request(URL);
@@ -68,12 +69,12 @@ bool RestApiDLL::VerifyPIN(int Cardnumber, int PIN)
     }
 }
 
-bool RestApiDLL::CardHolderData(int Cardnumber, QJsonDocument *data)
+bool RestApiDLL::CardHolderData(QString Cardstring, QJsonDocument *data)
 {
     CardDataManager = new QNetworkAccessManager(this);
 
     QEventLoop loop;
-    QString Cardstring = QVariant(Cardnumber).toString();
+    //QString Cardstring = QVariant(Cardnumber).toString();
 
     QUrl URL("http://localhost:3000/toiminnot/card_data");
     QNetworkRequest request(URL);
@@ -121,12 +122,12 @@ bool RestApiDLL::CardHolderData(int Cardnumber, QJsonDocument *data)
     }
 }
 
-bool RestApiDLL::checkBalance(int Cardnumber, double *balance)
+bool RestApiDLL::checkBalance(QString Cardstring, double *balance)
 {
     balanceManager = new QNetworkAccessManager(this);
 
     QEventLoop loop;
-    QString Cardstring = QVariant(Cardnumber).toString();
+    //QString Cardstring = QVariant(Cardnumber).toString();
 
 
     QUrl URL("http://localhost:3000/toiminnot/balance");
@@ -178,13 +179,13 @@ bool RestApiDLL::checkBalance(int Cardnumber, double *balance)
 }
 
 
-bool RestApiDLL::Withdraw(int sum, int CardNumber) //palauttaa väärän responsen (muuten toimii)
+bool RestApiDLL::Withdraw(QString SUMstring, QString Cardstring) //palauttaa väärän responsen (muuten toimii)
 {
     withdrawManager = new QNetworkAccessManager(this);
 
     QEventLoop loop;
-    QString Cardstring = QVariant(CardNumber).toString();
-    QString SUMstring = QVariant(sum).toString();
+    //QString Cardstring = QVariant(CardNumber).toString();
+    //QString SUMstring = QVariant(sum).toString();
 
     QUrl URL("http://localhost:3000/toiminnot/nosto/simple");
     QNetworkRequest request(URL);
