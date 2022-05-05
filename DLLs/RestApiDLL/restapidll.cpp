@@ -8,29 +8,27 @@
 #include <QVariantMap>
 #include <QJsonArray>
 
-
 RestApiDLL::RestApiDLL()
 {
-
-    getManager = new QNetworkAccessManager(this);
+    //getManager = new QNetworkAccessManager(this);
     qDebug() << "RestApi started" << Qt::endl;
 }
 
 bool RestApiDLL::VerifyPIN(QString Cardstring, QString PINstring)
 {
-    PINManager = new QNetworkAccessManager(this);
-    QEventLoop loop;
+    PINManager = new QNetworkAccessManager(this); //create new network manager
+    QEventLoop loop; //event loop object
 
-    //ei tarvita koska mainwindow antaa jo string muotoisena
+    //uncomment if parameters must be int
     //QString Cardstring = QVariant(Cardnumber).toString();
     //QString PINstring = QVariant(PIN).toString();
 
     QUrl URL("http://localhost:3000/kortti/kortteja");
     QNetworkRequest request(URL);
 
-    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
+    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded"); //set header
 
-    QUrlQuery urlQuery;
+    QUrlQuery urlQuery; //add URL query items
     urlQuery.addQueryItem ("Korttinumero", Cardstring);
     urlQuery.addQueryItem ("PIN", PINstring);
 
@@ -38,18 +36,17 @@ bool RestApiDLL::VerifyPIN(QString Cardstring, QString PINstring)
     connect(reply, &QNetworkReply::finished, &loop, &QEventLoop::quit); //wait for finished reply
     loop.exec();
 
-    if (reply->error() == QNetworkReply::NoError)
+    if (reply->error() == QNetworkReply::NoError) //read response if no error
     {
 
-        response_data=reply->readAll();
-        //qDebug()<<"DATA : "+response_data;
-        QJsonDocument json_Doc = QJsonDocument::fromJson(response_data);
+        response_data=reply->readAll(); //read response data
+        QJsonDocument json_Doc = QJsonDocument::fromJson(response_data); //create jsonDocument from response data
         bool pincorrect =  json_Doc.object().value("success").toBool();
 
         reply->deleteLater();
         PINManager->deleteLater();
 
-        if ( pincorrect == true)
+        if ( pincorrect == true) //if server response was succesfull return true
         {
 
             qDebug() << "success, pin and card are valid";
@@ -60,9 +57,7 @@ bool RestApiDLL::VerifyPIN(QString Cardstring, QString PINstring)
             qDebug() << "pin and card are invalid";
             return false;
         }
-
     }
-
     else
     {
         return false; //return error
@@ -90,9 +85,7 @@ bool RestApiDLL::CardHolderData(QString Cardstring, QJsonDocument *data)
 
     if (reply->error() == QNetworkReply::NoError)
     {
-
         response_data=reply->readAll();
-
 
         //qDebug()<<"DATA : "+response_data;
         QJsonDocument json_Doc = QJsonDocument::fromJson(response_data);
@@ -147,9 +140,6 @@ bool RestApiDLL::checkBalance(QString Cardstring, double *balance)
     {
 
         response_data=reply->readAll();
-
-
-        //qDebug()<<"DATA : "+response_data;
         QJsonDocument json_Doc = QJsonDocument::fromJson(response_data);
         bool success =  json_Doc.object().value("success").toBool();
         *balance =  json_Doc.object().value("balance").toDouble();
@@ -178,7 +168,6 @@ bool RestApiDLL::checkBalance(QString Cardstring, double *balance)
     }
 }
 
-
 bool RestApiDLL::Withdraw(QString SUMstring, QString Cardstring) //palauttaa väärän responsen (muuten toimii)
 {
     withdrawManager = new QNetworkAccessManager(this);
@@ -202,6 +191,7 @@ bool RestApiDLL::Withdraw(QString SUMstring, QString Cardstring) //palauttaa vä
 
     if (reply->error() == QNetworkReply::NoError)
     {
+        response_data=reply->readAll();
         qDebug()<<"Withdrawal data : "+response_data;
         QJsonDocument json_Doc = QJsonDocument::fromJson(response_data);
         qDebug() << "json doc from withdrawal: " << json_Doc;
@@ -219,7 +209,6 @@ bool RestApiDLL::Withdraw(QString SUMstring, QString Cardstring) //palauttaa vä
 
     return false;
 }
-
 
 RestApiDLL::~RestApiDLL()
 {

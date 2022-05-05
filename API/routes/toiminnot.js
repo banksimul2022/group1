@@ -32,7 +32,7 @@ router.post('/card_data', function (request, response) {
             if (err) {
                 return response.json({ success: false });
             } else {
-               
+
                 Nimi = dbResult[0].Nimi;
                 Osoite = dbResult[0].Osoite;
                 console.log("Kortin omistajan osoite");
@@ -81,6 +81,7 @@ router.post('/nosto/simple', function (request, response) {
                                     return response.json({ success: false, message: "withdrawal error" })
                                 }
                                 else {
+                                    console.log("Withdraw onnistui");
                                     return response.json({ success: true, message: "withdrawal success" })
                                     /* Transaction data not implemented yet ->
                                     toiminnot.AddTransaction(request.body.rahasumma, TiliID, KorttiID, function (err, result) {
