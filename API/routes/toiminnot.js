@@ -32,8 +32,14 @@ router.post('/card_data', function (request, response) {
             if (err) {
                 return response.json({ success: false });
             } else {
-                console.log(dbResult);
-                return response.json({ success: true, dbResult });
+               
+                Nimi = dbResult[0].Nimi;
+                Osoite = dbResult[0].Osoite;
+                console.log("Kortin omistajan osoite");
+                console.log(Osoite);
+                console.log("Kortin omistajan nimi");
+                console.log(Nimi);
+                return response.json({ success: true, Nimi, Osoite });
             }
         });
     }
@@ -76,7 +82,7 @@ router.post('/nosto/simple', function (request, response) {
                                 }
                                 else {
                                     return response.json({ success: true, message: "withdrawal success" })
-                                    /*
+                                    /* Transaction data not implemented yet ->
                                     toiminnot.AddTransaction(request.body.rahasumma, TiliID, KorttiID, function (err, result) {
                                         if (err) {
                                             return response.json({ success: false, message: "withdrawal error" })
@@ -102,55 +108,6 @@ router.post('/nosto/simple', function (request, response) {
 
     else {
         return response.json({ success: false, message: "undefined" })
-    }
-
-});
-
-//ei käytössä (kesken) ->
-router.post('/nosto', function (request, response) {
-
-    if (request.body.Korttinumero) {
-        if (request.body.rahasumma == undefined) { return response.json({ success: false, message: "no withdrawal amount given" }) };
-
-        toiminnot.checkBalance(request.body.Korttinumero, function (err, dbResult) {
-            if (err) {
-                return response.json({ success: false, message: "db error" })
-            } else {
-                console.log(dbResult);
-                if (dbResult[0].Saldo >= request.body.rahasumma) {
-                    console.log(dbResult[0].Saldo);
-
-                    toiminnot.Withdrawal(request.body.Korttinumero, request.body.rahasumma, function (err, result) {
-                        if (err) {
-                            return response.json({ success: false, message: "withdrawal error" })
-                        }
-                        else {
-                            return response.json({ success: true, message: result })
-                            toiminnot.Withdrawal(request.body.Korttinumero, request.body.rahasumma, function (err, result) {
-                                if (err) {
-                                    return response.json({ success: false, message: "withdrawal error" })
-                                }
-                                else {
-                                    return response.json({ success: true, message: result })
-                                }
-        
-                            });
-                        }
-
-                    });
-
-                }
-                else {
-                    return response.json({ success: false, message: "Insufficient funds" });
-                }
-
-
-            }
-        });
-    }
-
-    else {
-        return response.json({ success: false, message: "error" })
     }
 
 });
