@@ -7,8 +7,6 @@
 #include <QJsonDocument>
 #include <QString>
 
-
-
 class RESTAPIDLL_EXPORT RestApiDLL : public QObject
 {
     Q_OBJECT
@@ -23,11 +21,11 @@ public:
 private:
     QNetworkAccessManager * getManager;
     QNetworkAccessManager * withdrawManager;
+    QNetworkAccessManager * withudrawManager;
     QNetworkAccessManager * PINManager;
     QNetworkAccessManager * balanceManager;
     QNetworkAccessManager * CardDataManager;
     QNetworkReply *reply;
-    QNetworkReply *withdrawreply;
     QByteArray  response_data;
 };
 
