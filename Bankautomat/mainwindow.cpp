@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include "toiminnot.h"
 
+
 QString ID;
 
 MainWindow::MainWindow(QWidget *parent)
@@ -26,10 +27,7 @@ void MainWindow::on_pushButton_clicked()
     bool pinOK = false;
     ID = ui->lineEditID->text();
     QString PIN = ui->lineEditPIN->text();
-
-
     pinOK = RestApi->VerifyPIN(ID,PIN);
-    pinOK = true;
 
     if (pinOK){
         Toiminnot toiminnot1;
