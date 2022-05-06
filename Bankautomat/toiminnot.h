@@ -29,6 +29,8 @@ private slots:
 
     void on_pushButtonTakaisin2_clicked();
 
+    void on_pushButton_clicked();
+
 private:
     Ui::Toiminnot *ui;
     RestApiDLL *RestApiDLL2;

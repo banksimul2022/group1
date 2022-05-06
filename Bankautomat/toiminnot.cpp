@@ -59,6 +59,7 @@ void Toiminnot::on_pushButtonSaldo_clicked()
         qDebug() <<"saldos"<<balance;
         ui->labelSaldo->setText(balancestring);
         ui->labelSaldo->setVisible(true);
+
     }
     else {
         //tulosta virhe käyttäjälle
@@ -138,5 +139,11 @@ void Toiminnot::on_pushButtonTakaisin2_clicked()
     ui->labelSaldoWithdraw->setVisible(false);
     ui->labelUusiSaldoWithdraw->setVisible(false);
 
+}
+
+
+void Toiminnot::on_pushButton_clicked()
+{
+    close();
 }
 

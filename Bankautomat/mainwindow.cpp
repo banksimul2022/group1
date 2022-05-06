@@ -28,6 +28,8 @@ void MainWindow::on_pushButton_clicked()
     ID = ui->lineEditID->text();
     QString PIN = ui->lineEditPIN->text();
     pinOK = RestApi->VerifyPIN(ID,PIN);
+    ui->lineEditID->clear();
+    ui->lineEditPIN->clear();
 
     if (pinOK){
         Toiminnot toiminnot1;
