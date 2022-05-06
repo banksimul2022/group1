@@ -6,17 +6,17 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>397</width>
+    <height>433</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>SPANKKI</string>
   </property>
   <widget class="QPushButton" name="pushButtonNosto">
    <property name="geometry">
     <rect>
-     <x>240</x>
+     <x>260</x>
      <y>80</y>
      <width>80</width>
      <height>21</height>
@@ -190,6 +190,19 @@
    </property>
    <property name="text">
     <string>Kortin omistajan tiedot:</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButton">
+   <property name="geometry">
+    <rect>
+     <x>120</x>
+     <y>390</y>
+     <width>111</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>KIRJAUDU ULOS</string>
    </property>
   </widget>
  </widget>
